@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.techjini.mvp.R;
-import com.techjini.mvp.data.preferences.PreferencesManager;
+import com.techjini.mvp.data.preferences.AppPreferencesManager;
 import com.techjini.mvp.util.AppConstants;
 
 /**
@@ -19,7 +19,7 @@ import com.techjini.mvp.util.AppConstants;
 public class WelcomeFragment extends Fragment {
 
   private Activity mActivity;
-  private PreferencesManager mPreferencesManager;
+  private AppPreferencesManager mPreferencesManager;
 
   public WelcomeFragment() {
     // Required empty public constructor
@@ -37,7 +37,8 @@ public class WelcomeFragment extends Fragment {
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    mPreferencesManager = new PreferencesManager(mActivity, AppConstants.PREFERENCES_FILE_NAME);
+    mPreferencesManager =
+        AppPreferencesManager.getInstance(mActivity, AppConstants.PREFERENCES_FILE_NAME);
     // Inflate the layout for this fragment
     return inflater.inflate(R.layout.fragment_welcome, container, false);
   }

@@ -16,8 +16,13 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void startWelcomeFragment() {
-    getSupportFragmentManager().beginTransaction()
-        .add(R.id.layout_fragment_container, WelcomeFragment.newInstance())
-        .commit();
+    WelcomeFragment welcomeFragment = (WelcomeFragment) getSupportFragmentManager().
+        findFragmentById(R.id.layout_fragment_container);
+
+    if (welcomeFragment == null) {
+      getSupportFragmentManager().beginTransaction()
+          .add(R.id.layout_fragment_container, WelcomeFragment.newInstance())
+          .commit();
+    }
   }
 }
