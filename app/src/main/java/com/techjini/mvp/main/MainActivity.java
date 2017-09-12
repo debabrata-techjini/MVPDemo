@@ -6,6 +6,7 @@ import com.techjini.mvp.R;
 import com.techjini.mvp.data.AppDataManager;
 import com.techjini.mvp.data.DataManager;
 import com.techjini.mvp.data.database.AppDatabaseManager;
+import com.techjini.mvp.data.file.AppFileManager;
 import com.techjini.mvp.data.network.AppApiManager;
 import com.techjini.mvp.data.preferences.AppPreferencesManager;
 import com.techjini.mvp.util.AppConstants;
@@ -50,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
   private void initializeWelcomeFragmentPresenter() {
     DataManager dataManager =
         AppDataManager.getInstance(AppDatabaseManager.getInstance(), AppApiManager.getInstance(),
-            AppPreferencesManager.getInstance(this, AppConstants.PREFERENCES_FILE_NAME));
+            AppPreferencesManager.getInstance(this, AppConstants.PREFERENCES_FILE_NAME),
+            AppFileManager.getInstance());
     mWelcomeFragmentPresenter = new WelcomeFragmentPresenter(dataManager, mWelcomeFragment);
   }
 }

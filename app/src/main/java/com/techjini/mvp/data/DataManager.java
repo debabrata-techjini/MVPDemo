@@ -1,6 +1,7 @@
 package com.techjini.mvp.data;
 
 import com.techjini.mvp.data.database.DatabaseManager;
+import com.techjini.mvp.data.file.FileManager;
 import com.techjini.mvp.data.network.ApiManager;
 import com.techjini.mvp.data.preferences.PreferencesManager;
 
@@ -12,5 +13,5 @@ import com.techjini.mvp.data.preferences.PreferencesManager;
  *
  * @author Debu
  */
-public interface DataManager extends DatabaseManager, ApiManager, PreferencesManager {
+public interface DataManager extends DatabaseManager, ApiManager, PreferencesManager, FileManager {
 }

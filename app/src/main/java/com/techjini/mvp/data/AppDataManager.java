@@ -1,6 +1,7 @@
 package com.techjini.mvp.data;
 
 import com.techjini.mvp.data.database.AppDatabaseManager;
+import com.techjini.mvp.data.file.FileManager;
 import com.techjini.mvp.data.network.AppApiManager;
 import com.techjini.mvp.data.preferences.AppPreferencesManager;
 
@@ -16,19 +17,22 @@ public class AppDataManager implements DataManager {
   private final AppDatabaseManager mAppDatabaseManager;
   private final AppApiManager mAppApiManager;
   private final AppPreferencesManager mAppPreferencesManager;
+  private final FileManager mFileManager;
 
   private AppDataManager(AppDatabaseManager appDatabaseManager, AppApiManager appApiManager,
-      AppPreferencesManager appPreferencesManager) {
+      AppPreferencesManager appPreferencesManager, FileManager fileManager) {
     mAppDatabaseManager = appDatabaseManager;
     mAppApiManager = appApiManager;
     mAppPreferencesManager = appPreferencesManager;
+    mFileManager = fileManager;
   }
 
   public static AppDataManager getInstance(AppDatabaseManager appDatabaseManager,
-      AppApiManager appApiManager, AppPreferencesManager appPreferencesManager) {
+      AppApiManager appApiManager, AppPreferencesManager appPreferencesManager,
+      FileManager fileManager) {
     if (sAppDataManager == null) {
       sAppDataManager =
-          new AppDataManager(appDatabaseManager, appApiManager, appPreferencesManager);
+          new AppDataManager(appDatabaseManager, appApiManager, appPreferencesManager, fileManager);
     }
 
     return sAppDataManager;
