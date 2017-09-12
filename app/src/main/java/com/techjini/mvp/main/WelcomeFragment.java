@@ -10,16 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.techjini.mvp.R;
-import com.techjini.mvp.data.preferences.PreferencesManager;
-import com.techjini.mvp.util.AppConstants;
 
 /**
+ * Shows "Welcome" to the first-time-user, otherwise shows "Welcome back".
+ *
  * @author Debu
  */
-public class WelcomeFragment extends Fragment {
+public class WelcomeFragment extends Fragment implements WelcomeFragmentContract.View {
 
   private Activity mActivity;
-  private PreferencesManager mPreferencesManager;
+  private WelcomeFragmentContract.Presenter mWelcomeFragmentPresenter;
 
   public WelcomeFragment() {
     // Required empty public constructor
@@ -37,7 +37,6 @@ public class WelcomeFragment extends Fragment {
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    mPreferencesManager = new PreferencesManager(mActivity, AppConstants.PREFERENCES_FILE_NAME);
     // Inflate the layout for this fragment
     return inflater.inflate(R.layout.fragment_welcome, container, false);
   }
@@ -45,19 +44,36 @@ public class WelcomeFragment extends Fragment {
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
-    showWelcomeMessage();
+    mWelcomeFragmentPresenter.onWelcomeFragmentCreated();
   }
 
-  private void showWelcomeMessage() {
-    int welcomeMessageResource;
+  @Override public void onResume() {
+    super.onResume();
 
-    if (mPreferencesManager.getIsFirstTimeUser()) {
-      welcomeMessageResource = R.string.welcome;
-      mPreferencesManager.setIsFirstTimeUser(false);
-    } else {
-      welcomeMessageResource = R.string.welcome_back;
-    }
+    mWelcomeFragmentPresenter.start();
+  }
 
-    Toast.makeText(mActivity, welcomeMessageResource, Toast.LENGTH_SHORT).show();
+  /**
+   * Shows welcome message to the first-time-user.
+   */
+  @Override public void showWelcomeMessage() {
+    Toast.makeText(mActivity, R.string.welcome, Toast.LENGTH_SHORT).show();
+  }
+
+  /**
+   * Shows welcome message to the user next time onwards (i.e. after the first time use).
+   */
+  @Override public void showWelcomeBackMessage() {
+    Toast.makeText(mActivity, R.string.welcome_back, Toast.LENGTH_SHORT).show();
+  }
+
+  /**
+   * Sets the presenter (which is called from the corresponding presenter class) to the view. The
+   * welcome fragment uses this presenter to handle all the user actions and events.
+   *
+   * @param presenter the presenter to set to the view.
+   */
+  @Override public void setPresenter(WelcomeFragmentContract.Presenter presenter) {
+    mWelcomeFragmentPresenter = presenter;
   }
 }

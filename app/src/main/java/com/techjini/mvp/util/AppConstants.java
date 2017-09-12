@@ -1,6 +1,8 @@
 package com.techjini.mvp.util;
 
 /**
+ * Contains all the app constants.
+ *
  * @author Debu
  */
 public class AppConstants {

@@ -1,27 +1,23 @@
 package com.techjini.mvp.data.preferences;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
 /**
+ * It specifies abstract methods to read from and write to the shared preferences.
+ *
  * @author Debu
  */
-public class PreferencesManager {
+public interface PreferencesManager {
 
-  private static final String PREFERENCES_KEY_IS_FIRST_TIME_USER = "isFirstTimeUser";
-  private final SharedPreferences mSharedPreferences;
+  /**
+   * Gets the is-first-time-user value from the preferences.
+   *
+   * @return true if the user is a first-time-user.
+   */
+  boolean getIsFirstTimeUser();
 
-  public PreferencesManager(Context context, String preferencesFileName) {
-    mSharedPreferences = context.getSharedPreferences(preferencesFileName, Context.MODE_PRIVATE);
-  }
-
-  public boolean getIsFirstTimeUser() {
-    return mSharedPreferences.getBoolean(PREFERENCES_KEY_IS_FIRST_TIME_USER, true);
-  }
-
-  public void setIsFirstTimeUser(boolean isFirstTimeUser) {
-    mSharedPreferences.edit()
-        .putBoolean(PREFERENCES_KEY_IS_FIRST_TIME_USER, isFirstTimeUser)
-        .apply();
-  }
+  /**
+   * Sets the is-first-time-user value to the preferences.
+   *
+   * @param isFirstTimeUser whether the user is a first-time-user
+   */
+  void setIsFirstTimeUser(boolean isFirstTimeUser);
 }
